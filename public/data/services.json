@@ -1,0 +1,145 @@
+[
+  {
+    "id": "r1",
+    "category": "repair",
+    "title": "تغيير شاشة",
+    "price": "حسب الموديل",
+    "image": "services/screen",
+    "features": ["شاشة أصلية", "ضمان 6 شهور", "تركيب فوري"],
+    "active": true,
+    "body": "تغيير شاشات جميع أنواع الجوالات بقطع غيار أصلية",
+    "badge": "الأكثر طلباً"
+  },
+  {
+    "id": "r2",
+    "category": "repair",
+    "title": "تغيير بطارية",
+    "price": "حسب الموديل",
+    "image": "services/battery",
+    "features": ["بطارية أصلية", "ضمان 3 شهور"],
+    "active": true,
+    "body": "استبدال البطاريات التالفة ببطاريات أصلية",
+    "badge": ""
+  },
+  {
+    "id": "r3",
+    "category": "repair",
+    "title": "سوفت وير",
+    "price": "حسب المشكلة",
+    "image": "services/software",
+    "features": ["تحديث نظام", "حل مشاكل البرمجة"],
+    "active": true,
+    "body": "برمجة وتحديث أنظمة التشغيل وحل جميع المشاكل البرمجية",
+    "badge": ""
+  },
+  {
+    "id": "r4",
+    "category": "repair",
+    "title": "فتح أجهزة مقفلة",
+    "price": "حسب الموديل",
+    "image": "services/unlock",
+    "features": ["جميع الأجهزة", "سريع وآمن"],
+    "active": true,
+    "body": "فتح الأجهزة المقفلة بطرق آمنة واحترافية",
+    "badge": ""
+  },
+  {
+    "id": "r5",
+    "category": "repair",
+    "title": "حل مشاكل الشبكة",
+    "price": "حسب المشكلة",
+    "image": "services/network",
+    "features": ["تشخيص دقيق", "إصلاح فوري"],
+    "active": true,
+    "body": "تشخيص وإصلاح جميع مشاكل الشبكة والاتصال",
+    "badge": ""
+  },
+  {
+    "id": "a1",
+    "category": "accessories",
+    "title": "شواحن",
+    "price": "من 500 ريال",
+    "image": "services/charger",
+    "features": ["أصلية", "شحن سريع"],
+    "active": true,
+    "body": "شواحن أصلية لجميع الأجهزة بتقنية الشحن السريع",
+    "badge": ""
+  },
+  {
+    "id": "a2",
+    "category": "accessories",
+    "title": "سماعات",
+    "price": "من 300 ريال",
+    "image": "services/headphones",
+    "features": ["سلكية ولاسلكية", "جودة عالية"],
+    "active": true,
+    "body": "سماعات بجودة صوت ممتازة لجميع الاستخدامات",
+    "badge": "جديد"
+  },
+  {
+    "id": "a3",
+    "category": "accessories",
+    "title": "كفرات حماية",
+    "price": "من 200 ريال",
+    "image": "services/cases",
+    "features": ["تصاميم متنوعة", "حماية كاملة"],
+    "active": true,
+    "body": "كفرات حماية بتصاميم عصرية لجميع الموديلات",
+    "badge": ""
+  },
+  {
+    "id": "a4",
+    "category": "accessories",
+    "title": "لاصقات حماية",
+    "price": "من 100 ريال",
+    "image": "services/protector",
+    "features": ["زجاج مقوى", "تركيب مجاني"],
+    "active": true,
+    "body": "لاصقات حماية شاشة بزجاج مقوى عالي الجودة",
+    "badge": ""
+  },
+  {
+    "id": "t1",
+    "category": "telecom",
+    "title": "شحن رصيد",
+    "price": "حسب الباقة",
+    "image": "services/credit",
+    "features": ["فوري", "جميع الشبكات"],
+    "active": true,
+    "body": "شحن رصيد لجميع الشبكات المحلية والدولية",
+    "badge": ""
+  },
+  {
+    "id": "t2",
+    "category": "telecom",
+    "title": "تفعيل باقات",
+    "price": "حسب الباقة",
+    "image": "services/packages",
+    "features": ["إنترنت", "مكالمات", "مختلطة"],
+    "active": true,
+    "body": "تفعيل جميع أنواع الباقات بأسعار منافسة",
+    "badge": ""
+  },
+  {
+    "id": "t3",
+    "category": "telecom",
+    "title": "سداد فواتير",
+    "price": "حسب الفاتورة",
+    "image": "services/bills",
+    "features": ["سريع", "آمن"],
+    "active": true,
+    "body": "سداد فواتير الاتصالات بسرعة وأمان",
+    "badge": ""
+  },
+  {
+    "id": "t4",
+    "category": "telecom",
+    "title": "شحن ألعاب",
+    "price": "حسب اللعبة",
+    "image": "services/gaming",
+    "features": ["PUBG", "فري فاير"],
+    "active": true,
+    "body": "شحن جميع الألعاب الشهيرة بأسعار منافسة",
+    "badge": ""
+  }
+]
