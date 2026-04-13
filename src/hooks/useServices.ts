@@ -13,48 +13,100 @@ export function useServices() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("all");
 
   useEffect(() => {
-    // Try cache first
-    try {
-      const cached = localStorage.getItem(CACHE_KEY);
-      if (cached) {
-        const { data, ts } = JSON.parse(cached);
-        if (Date.now() - ts < CACHE_TTL && Array.isArray(data) && data.length > 0) {
-          setServices(data);
-          setLoading(false);
-          return;
-        }
-      }
-    } catch {}
+    let isMounted = true;
+    const controller = new AbortController();
 
-    fetch("/data/services.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed");
-        return res.json();
-      })
-      .then((data: Service[]) => {
-        const active = data.filter((s) => s.active);
-        if (active.length === 0) {
-          setServices(FALLBACK_SERVICES);
-          setIsFallback(true);
-        } else {
-          setServices(active);
+    const loadServices = async () => {
+      try {
+        // 🧠 1. Load from cache first
+        const cached = localStorage.getItem(CACHE_KEY);
+
+        if (cached) {
           try {
-            localStorage.setItem(CACHE_KEY, JSON.stringify({ data: active, ts: Date.now() }));
+            const { data, ts } = JSON.parse(cached);
+
+            if (
+              Array.isArray(data) &&
+              data.length > 0 &&
+              Date.now() - ts < CACHE_TTL
+            ) {
+              if (isMounted) {
+                setServices(data);
+                setLoading(false);
+              }
+              return;
+            }
+          } catch {
+            localStorage.removeItem(CACHE_KEY);
+          }
+        }
+
+        // 🌐 2. Fetch fresh data
+        const res = await fetch("/data/services.json", {
+          signal: controller.signal,
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch services");
+
+        const data: Service[] = await res.json();
+
+        const active = data.filter((s) => s.active !== false);
+
+        if (!active.length) {
+          if (isMounted) {
+            setServices(FALLBACK_SERVICES);
+            setIsFallback(true);
+          }
+        } else {
+          if (isMounted) {
+            setServices(active);
+          }
+
+          // 💾 save cache
+          try {
+            localStorage.setItem(
+              CACHE_KEY,
+              JSON.stringify({
+                data: active,
+                ts: Date.now(),
+              })
+            );
           } catch {}
         }
-      })
-      .catch(() => {
-        setServices(FALLBACK_SERVICES);
-        setIsFallback(true);
-        setError(true);
-      })
-      .finally(() => setLoading(false));
+      } catch (err) {
+        if (isMounted) {
+          setServices(FALLBACK_SERVICES);
+          setIsFallback(true);
+          setError(true);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadServices();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
   }, []);
 
-  const filteredServices = useMemo(
-    () => (activeCategory === "all" ? services : services.filter((s) => s.category === activeCategory)),
-    [services, activeCategory]
-  );
+  // 🎯 Filter optimization (stable + fast)
+  const filteredServices = useMemo(() => {
+    if (activeCategory === "all") return services;
+    return services.filter((s) => s.category === activeCategory);
+  }, [services, activeCategory]);
 
-  return { services, filteredServices, loading, error, isFallback, activeCategory, setActiveCategory };
+  return {
+    services,
+    filteredServices,
+    loading,
+    error,
+    isFallback,
+    activeCategory,
+    setActiveCategory,
+  };
 }
