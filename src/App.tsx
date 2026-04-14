@@ -3,8 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import Pricing from "./pages/Pricing.tsx"; // ✅ أضف هذا
 
 const queryClient = new QueryClient();
 
@@ -15,9 +17,16 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+
+          {/* 🟢 الصفحة الرئيسية */}
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+          {/* 🟢 صفحة الأسعار (الجديدة) */}
+          <Route path="/pricing" element={<Pricing />} />
+
+          {/* ❌ صفحة غير موجودة */}
           <Route path="*" element={<NotFound />} />
+
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
