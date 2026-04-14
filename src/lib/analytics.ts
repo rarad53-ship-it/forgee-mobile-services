@@ -1,26 +1,17 @@
-const WHATSAPP_KEY = "forgee_whatsapp_clicks";
+import { trackEvent } from "@/lib/analytics";
 
-export function trackWhatsAppClick(serviceName?: string) {
+/**
+ * 🔥 تتبع ضغط واتساب بشكل موحد مع النظام الكامل
+ */
+export function trackWhatsAppClick(
+  serviceName?: string,
+  source: "hero" | "service" | "floating" | "pricing" | "unknown" = "unknown"
+) {
   try {
-    const existing = localStorage.getItem(WHATSAPP_KEY);
-
-    let data = {
-      total: 0,
-      services: {} as Record<string, number>,
-    };
-
-    if (existing) {
-      data = JSON.parse(existing);
-    }
-
-    data.total += 1;
-
-    if (serviceName) {
-      data.services[serviceName] =
-        (data.services[serviceName] || 0) + 1;
-    }
-
-    localStorage.setItem(WHATSAPP_KEY, JSON.stringify(data));
+    trackEvent("whatsapp_click", {
+      service: serviceName || "general",
+      source,
+    });
   } catch (e) {
     console.error("Analytics error:", e);
   }
