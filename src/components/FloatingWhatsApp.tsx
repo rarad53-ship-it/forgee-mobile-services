@@ -3,20 +3,24 @@ import { buildWhatsAppUrl } from "@/lib/data";
 import { trackWhatsAppClick } from "@/lib/analytics";
 
 const FloatingWhatsApp = () => {
-  const whatsappUrl = buildWhatsAppUrl();
 
   const handleClick = () => {
-    // 🔥 تسجيل الضغط
+    // 🔥 تسجيل التتبع
     trackWhatsAppClick("floating");
 
-    // 🚀 فتح واتساب
-    window.open(whatsappUrl, "_blank");
+    // 🚀 توليد الرابط مع المصدر
+    const url = buildWhatsAppUrl(undefined, false, "floating");
+
+    // فتح آمن
+    if (typeof window !== "undefined") {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
   };
 
   return (
     <div className="fixed bottom-6 start-6 z-50 flex flex-col items-center gap-2">
 
-      {/* 🧠 CTA نص إقناعي */}
+      {/* 🧠 CTA محسّن */}
       <span className="rounded-lg bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground shadow-lg animate-bounce">
         احصل على عرض سعر الآن 🚀
       </span>
@@ -29,6 +33,7 @@ const FloatingWhatsApp = () => {
       >
         <MessageCircle className="h-7 w-7" />
       </button>
+
     </div>
   );
 };
