@@ -24,17 +24,26 @@ const iconMap: Record<string, string> = {
 };
 
 const ServiceCard = ({ service, inquiryMode = false }: Props) => {
-  const whatsappUrl = buildWhatsAppUrl(service.title, inquiryMode);
 
-  // 🧠 تحسين النص حسب نية العميل
+  // 🔥 توليد الرابط (مع مصدر التتبع)
+  const whatsappUrl = buildWhatsAppUrl(
+    service.title,
+    inquiryMode,
+    "service_card"
+  );
+
   const buttonText = inquiryMode
     ? "احصل على سعر سريع"
     : "اطلب عبر واتساب الآن";
 
-  // 🔥 تتبع الضغط + فتح واتساب
+  // 🚀 أفضل ممارسة: فصل الحدث
   const handleClick = () => {
     trackWhatsAppClick(service.title);
-    window.open(whatsappUrl, "_blank");
+
+    // حماية + تجربة أفضل
+    if (typeof window !== "undefined") {
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    }
   };
 
   return (
@@ -63,10 +72,7 @@ const ServiceCard = ({ service, inquiryMode = false }: Props) => {
             {service.title}
           </h3>
 
-          <span
-            className="ltr-nums text-sm font-semibold text-accent"
-            dir="ltr"
-          >
+          <span className="ltr-nums text-sm font-semibold text-accent" dir="ltr">
             {formatPrice(service.price)}
           </span>
         </div>
@@ -94,7 +100,7 @@ const ServiceCard = ({ service, inquiryMode = false }: Props) => {
         </ul>
       )}
 
-      {/* 🚀 CTA BUTTON (الأهم) */}
+      {/* 🚀 CTA */}
       <button
         onClick={handleClick}
         className="mt-auto flex items-center justify-center gap-2 rounded-xl bg-whatsapp px-4 py-3 text-sm font-bold text-whatsapp-foreground transition-transform hover:scale-[1.02] active:scale-95 shadow-md"
