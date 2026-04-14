@@ -12,8 +12,13 @@ export interface Service {
 
 export const WHATSAPP_NUMBER = "967774400447";
 
-export const buildWhatsAppUrl = (serviceName?: string, isInquiry = false) => {
+export const buildWhatsAppUrl = (
+  serviceName?: string,
+  isInquiry = false,
+  source: string = "unknown" // 🔥 إضافة تتبع المصدر
+) => {
   let text: string;
+
   if (serviceName && isInquiry) {
     text = `مرحباً فورجي، كم سعر ${serviceName}؟`;
   } else if (serviceName) {
@@ -21,6 +26,16 @@ export const buildWhatsAppUrl = (serviceName?: string, isInquiry = false) => {
   } else {
     text = `مرحباً فورجي، أريد الاستفسار عن خدماتكم`;
   }
+
+  // 🔥 تتبع واتساب (Analytics)
+  if (typeof window !== "undefined" && (window as any).gtag) {
+    (window as any).gtag("event", "whatsapp_click", {
+      event_category: "engagement",
+      event_label: serviceName || "general",
+      source: source,
+    });
+  }
+
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 };
 
