@@ -1,16 +1,16 @@
 const STORAGE_KEY = "forgee_analytics";
 
 /**
- * نوع الحدث المخزن
+ * 📊 شكل الحدث
  */
 type EventType = {
   service?: string;
-  source: "hero" | "service_card" | "floating" | "unknown";
+  source: "hero" | "service_card" | "floating" | "pricing" | "unknown";
   time: number;
 };
 
 /**
- * 🔥 تسجيل حدث جديد (ضغط واتساب)
+ * 🔥 تسجيل حدث جديد
  */
 export const trackEvent = (data: Omit<EventType, "time">) => {
   try {
@@ -25,13 +25,12 @@ export const trackEvent = (data: Omit<EventType, "time">) => {
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
   } catch (error) {
-    // فشل التخزين لا يكسر الموقع
     console.warn("Analytics storage failed:", error);
   }
 };
 
 /**
- * 📊 جلب كل البيانات
+ * 📥 جلب كل الأحداث
  */
 export const getAnalytics = (): EventType[] => {
   try {
@@ -44,7 +43,7 @@ export const getAnalytics = (): EventType[] => {
 };
 
 /**
- * 🧹 حذف كل البيانات (للاختبار أو إعادة التصفير)
+ * 🧹 حذف البيانات
  */
 export const clearAnalytics = () => {
   try {
@@ -55,11 +54,42 @@ export const clearAnalytics = () => {
 };
 
 /**
- * 📈 تحليل سريع جاهز للاستخدام داخل Dashboard
+ * 📈 Dashboard Summary (النسخة الاحترافية)
  */
 export const getSummary = () => {
   const data = getAnalytics();
 
-  const total = data.length;
+  const summary = {
+    totalClicks: data.length,
+    bySource: {
+      hero: 0,
+      service_card: 0,
+      floating: 0,
+      pricing: 0,
+      unknown: 0,
+    },
+    byService: {} as Record<string, number>,
+    last24h: 0,
+  };
 
-  const
+  const now = Date.now();
+  const DAY = 24 * 60 * 60 * 1000;
+
+  data.forEach((event) => {
+    // 📌 حسب المصدر
+    summary.bySource[event.source]++;
+
+    // 📌 حسب الخدمة
+    if (event.service) {
+      summary.byService[event.service] =
+        (summary.byService[event.service] || 0) + 1;
+    }
+
+    // 📌 آخر 24 ساعة
+    if (now - event.time < DAY) {
+      summary.last24h++;
+    }
+  });
+
+  return summary;
+};
