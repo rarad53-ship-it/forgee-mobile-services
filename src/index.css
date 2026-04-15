@@ -1,81 +1,64 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
 
-@layer base {
-  :root {
-    --background: 210 20% 96%;
-    --foreground: 222 47% 11%;
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    <!-- Title -->
+    <title>Forgee 4G Mobile Services | صيانة - شحن - بطاقات ألعاب في إب</title>
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    <!-- SEO Description -->
+    <meta name="description" content="أفضل خدمات صيانة الجوال، شحن الرصيد، فك الحماية، وبطاقات الألعاب في إب اليمن. خدمة سريعة وأسعار منافسة واتساب مباشر." />
 
-    --primary: 222 47% 11%;
-    --primary-foreground: 0 0% 100%;
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#004E9A" />
 
-    --secondary: 210 20% 93%;
-    --secondary-foreground: 222 47% 11%;
+    <!-- Open Graph -->
+    <meta property="og:title" content="Forgee 4G Mobile Services | خدمات الجوال في إب" />
+    <meta property="og:description" content="صيانة احترافية، شحن فوري، بطاقات ألعاب، وفك حماية الأجهزة في إب اليمن" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ar_YE" />
+    <meta property="og:image" content="/og-image.jpg" />
 
-    --muted: 210 15% 92%;
-    --muted-foreground: 215 16% 47%;
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
 
-    --accent: 187 92% 69%;
-    --accent-foreground: 222 47% 11%;
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    --border: 214 20% 90%;
-    --input: 214 20% 90%;
-    --ring: 187 92% 69%;
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" />
 
-    --radius: 1rem;
+    <!-- SEO Schema (Local Business) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Forgee 4G Mobile Services",
+      "description": "خدمات صيانة الجوال، شحن الرصيد، فك الحماية وبطاقات الألعاب في إب اليمن",
+      "telephone": "+967774400447",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "إب",
+        "addressCountry": "YE"
+      },
+      "url": "https://forgee-mobile-services.vercel.app"
+    }
+    </script>
 
-    --whatsapp: 142 70% 45%;
-    --whatsapp-foreground: 0 0% 100%;
+  </head>
 
-    --badge: 25 95% 53%;
-    --badge-foreground: 0 0% 100%;
+  <body>
+    <!-- React Root -->
+    <div id="root"></div>
 
-    --hero-gradient-from: 222 47% 11%;
-    --hero-gradient-to: 224 55% 18%;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-tajawal antialiased;
-  }
-}
-
-@layer utilities {
-  .ltr-nums {
-    direction: ltr;
-    unicode-bidi: isolate;
-  }
-}
-
-@keyframes pulse-whatsapp {
-  0%, 100% {
-    box-shadow: 0 0 0 0 hsl(var(--whatsapp) / 0.5);
-  }
-  50% {
-    box-shadow: 0 0 0 12px hsl(var(--whatsapp) / 0);
-  }
-}
+    <!-- React Entry Point -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
